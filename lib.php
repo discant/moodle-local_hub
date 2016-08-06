@@ -225,7 +225,7 @@ class local_hub {
             $this->update_site($site);
         } else {
             $site->id = $DB->insert_record('hub_site_directory', $site);
-            update_sendy_list($site);
+//            update_sendy_list($site);
         }
         return $site;
     }
