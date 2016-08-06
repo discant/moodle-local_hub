@@ -201,7 +201,7 @@ class local_hub {
         global $DB;
         $site->timemodified = time();
         $DB->update_record('hub_site_directory', $site);
-        update_sendy_list($site);
+//        update_sendy_list($site);
     }
 
     /**
@@ -2113,33 +2113,34 @@ function local_hub_comment_validate($comment_param) {
     return true;
 }
 
-/**
- * Optionally subscribe/unsubscribe the contactemail to/from a sendy mailing list.
- * Loads all sites associated with the supplied site contactemail and passes them to update_sendy_list_batch().
- * This is necessary because the emailalert property may be different on the various sites associated with a given email.
- * We can't subscribe or unsubscribe them based on a single site's value.
- *
- * @todo tobe in local_hub class or not? its a helper function for now for any functional expansion..
- *
- * @param $site a row from hub_site_directory
- */
+/*
+
+// Optionally subscribe/unsubscribe the contactemail to/from a sendy mailing list.
+// Loads all sites associated with the supplied site contactemail and passes them to update_sendy_list_batch().
+// This is necessary because the emailalert property may be different on the various sites associated with a given email.
+// We can't subscribe or unsubscribe them based on a single site's value.
+//
+// @todo tobe in local_hub class or not? its a helper function for now for any functional expansion..
+//
+// @param $site a row from hub_site_directory
+ 
+
 function update_sendy_list($site) {
     $hub = new local_hub();
     $sites = $hub->get_sites(array('contactemail' => $site->contactemail));
     update_sendy_list_batch($sites);
 }
 
-/**
- * Send, en masse, updates to the sendy list via REST. Really, the list is managed at and by sendy.
- *
- * An email address will be subscribed if at least one site is associated with it with emailalert and contactable both set to 1.
- * If all sites for an email address have emailalert or contactable == 0 the email address will be unsubscribed.
- *
- * @todo tobe in local_hub class or not? its a helper function for now for any functional expansion..
- *
- * @param array $sites Sites to subscribe/unsubscribe to Sendy
- * @param int $chunksize
- */
+// Send, en masse, updates to the sendy list via REST. Really, the list is managed at and by sendy.
+//
+// An email address will be subscribed if at least one site is associated with it with emailalert and contactable both set to 1.
+// If all sites for an email address have emailalert or contactable == 0 the email address will be unsubscribed.
+//
+// @todo tobe in local_hub class or not? its a helper function for now for any functional expansion..
+//
+// @param array $sites Sites to subscribe/unsubscribe to Sendy
+// @param int $chunksize
+
 function update_sendy_list_batch($sites, $chunksize=150) {
     global $CFG;
     require_once($CFG->dirroot.'/local/hub/curl.php');
@@ -2236,10 +2237,9 @@ function process_sendy_chunks($chunks, $sendyurl, $resturl, $sendylistid, $sendy
     }
 }
 
-/**
- * Query a Sendy server for the status of an email address.
- * @return string See "Subscription status" at http://sendy.co/api for possible values
- */
+// Query a Sendy server for the status of an email address.
+// @return string See "Subscription status" at http://sendy.co/api for possible values
+
 function get_sendy_status($sendyurl, $sendyapikey, $sendylistid, $email) {
     global $CFG;
     require_once($CFG->dirroot.'/local/hub/curl.php');
@@ -2254,3 +2254,5 @@ function get_sendy_status($sendyurl, $sendyapikey, $sendylistid, $email) {
 
     return $result;
 }
+
+*/
